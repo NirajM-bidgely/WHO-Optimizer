@@ -1,0 +1,34 @@
+{
+  "metadata": {
+    "granularity": 3600,
+    "startTime": 1709251200,
+    "totalTimeSlots": 24,
+    "timezone": "Asia/Kolkata",
+    "currency": "INR"
+  },
+  "rates": {
+    "rateVector": [
+      1.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0,
+      10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0,
+      10.0, 10.0, 10.0, 10.0
+    ]
+  },
+  "appliances": [
+    {
+      "appId": 71,
+      "name": "AC",
+      "shiftable": true,
+      "blocks": [
+        {
+          "blockId": 1,
+          "start_t": 5,
+          "duration": 1,
+          "consumption": [2.0],
+          "constraints": {
+            "maxShiftHours": 10
+          }
+        }
+      ]
+    }
+  ]
+}

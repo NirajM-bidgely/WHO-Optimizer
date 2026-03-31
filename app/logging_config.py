@@ -1,0 +1,19 @@
+"""Configure logging from env LOG_LEVEL (default INFO)."""
+
+from __future__ import annotations
+
+import logging
+import os
+
+
+def configure_logging() -> None:
+    level_name = os.environ.get("LOG_LEVEL", "INFO").upper()
+    level = getattr(logging, level_name, logging.INFO)
+    logging.basicConfig(
+        level=level,
+        format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+    # Quiet noisy third-party loggers unless DEBUG
+    if level > logging.DEBUG:
+        logging.getLogger("pulp").setLevel(logging.WARNING)
