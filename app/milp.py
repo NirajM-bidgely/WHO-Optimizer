@@ -151,7 +151,10 @@ def optimize(request: OptimizeRequest, default_currency: str = "INR") -> Optimiz
         for b, new_start in by_app[app_id]:
             cost_before = block_energy_cost(rates, b.start_t, b.consumption)
             cost_after = block_energy_cost(rates, new_start, b.consumption)
-            sav = cost_before - cost_after
+            raw_sav = cost_before - cost_after
+            sav = round(raw_sav, 6)
+            if sav == 0.0:
+                continue
             total_savings += sav
             block_results.append(
                 BlockShiftResult(
@@ -162,9 +165,11 @@ def optimize(request: OptimizeRequest, default_currency: str = "INR") -> Optimiz
                     consumption=list(b.consumption),
                     costBefore=round(cost_before, 6),
                     costAfter=round(cost_after, 6),
-                    savings=round(sav, 6),
+                    savings=sav,
                 )
             )
+        if not block_results:
+            continue
         load_shift.append(
             ApplianceShiftResult(
                 appId=app_id,
